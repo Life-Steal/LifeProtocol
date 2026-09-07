@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package life;
+
+option java_package = "dev.saltt.life.protocol";
+option java_multiple_files = true;
+
+enum GameType {
+  GAME_TYPE_UNSPECIFIED = 0;
+  SURVIVAL_GAMES = 1;
+}
+
+enum MatchStatus {
+  MATCH_STATUS_UNSPECIFIED = 0;
+  SERVER_LOADING = 1;
+  WAITING_FOR_PLAYERS = 2;
+  STARTING = 3;
+  IN_PROGRESS = 4;
+  ENDING = 5;
+  ENDED = 6;
+}
+
+message MatchPlayer {
+  string player_uuid = 1;
+  string player_name = 2;
+}

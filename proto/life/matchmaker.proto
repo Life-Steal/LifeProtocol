@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package life;
+
+import "life/common.proto";
+
+option java_package = "dev.saltt.life.protocol";
+option java_multiple_files = true;
+
+message MatchHeartbeat {
+  string match_id = 1;
+  GameType game_type = 2;
+  MatchStatus status = 3;
+
+
+  repeated string connected_player_ids = 4;
+
+  repeated string claimed_player_ids = 5;
+
+  int32 alive_count = 6;
+}
+
+message HeartbeatAck {
+  bool acknowledged = 1;
+}
+
+message PlayerResult {
+  string player_uuid = 1;
+
+  int32 placement = 2;
+
+  int32 kills = 3;
+  int32 deaths = 4;
+  int64 damage_dealt = 5;
+  int64 damage_taken = 6;
+  int64 time_alive_millis = 7;
+
+  string killer_uuid = 8;
+}
+
+message MatchResult {
+  string match_id = 1;
+  GameType game_type = 2;
+  string map_name = 3;
+
+  int64 time_start_millis = 4;
+  int64 time_end_millis = 5;
+
+  bool abandoned = 6;
+
+  string winner_uuid = 7;
+
+  repeated PlayerResult players = 8;
+}
+
+message MatchResultAck {
+  bool acknowledged = 1;
+}
+
+service MatchmakerService {
+  rpc Heartbeat(MatchHeartbeat) returns (HeartbeatAck);
+  rpc MatchFinished(MatchResult) returns (MatchResultAck);
+}

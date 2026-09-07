@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package life;
+
+import "life/common.proto";
+
+option java_package = "dev.saltt.life.protocol";
+option java_multiple_files = true;
+
+message SetupMatchRequest {
+  string match_id = 1;
+  GameType game_type = 2;
+
+  repeated MatchPlayer players = 3;
+
+  string map_id = 4;
+
+  int32 minimum_starting_players = 5;
+}
+
+message SetupMatchResponse {
+  bool success = 1;
+  string match_id = 2;
+  string error = 3;
+}
+
+message SpectatorReserveRequest {
+  string player_uuid = 1;
+  string match_id = 2;
+}
+
+message SpectatorReserveResponse {
+  bool success = 1;
+}
+
+service InstancerService {
+  rpc SetupMatch(SetupMatchRequest) returns (SetupMatchResponse);
+  rpc SpectatorReserve(SpectatorReserveRequest) returns (SpectatorReserveResponse);
+}

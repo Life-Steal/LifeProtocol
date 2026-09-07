@@ -1,0 +1,16 @@
+[versions]
+protobuf = "4.31.1"
+grpc = "1.74.0"
+protobufPlugin = "0.9.5"
+annotationsApi = "6.0.53"
+
+[libraries]
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
+protoc = { module = "com.google.protobuf:protoc", version.ref = "protobuf" }
+grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpc" }
+grpc-protobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpc" }
+grpc-gen-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "grpc" }
+annotations-api = { module = "org.apache.tomcat:annotations-api", version.ref = "annotationsApi" }
+
+[plugins]
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
