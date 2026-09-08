@@ -32,8 +32,9 @@ public final class TransferTickets {
     }
 
     /**
-     * The ticket inside a referral payload, only if its signature is valid and it is younger
-     * than {@code maxAgeMillis}.
+     * The ticket inside a referral payload, only if its signature is valid and it was issued
+     * within {@code maxAgeMillis} of now, in either direction: the hub's and the node's clocks
+     * need not agree to the millisecond.
      */
     public static Optional<TransferTicket> verify(byte[] payload, String secret, long maxAgeMillis,
                                                   long nowMillis) {
@@ -46,8 +47,7 @@ public final class TransferTickets {
         } catch (InvalidProtocolBufferException e) {
             return Optional.empty();
         }
-        long age = nowMillis - ticket.getIssuedAtMillis();
-        if (age < 0 || age > maxAgeMillis) {
+        if (Math.abs(nowMillis - ticket.getIssuedAtMillis()) > maxAgeMillis) {
             return Optional.empty();
         }
         byte[] expected = mac(ticket.toBuilder().clearHmac().build(), secret);
