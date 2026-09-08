@@ -24,3 +24,14 @@ message MatchPlayer {
   string player_uuid = 1;
   string player_name = 2;
 }
+
+// Carried in the referral payload when the hub sends a player to a node. It travels through the
+// client, so the node trusts nothing in it until the hmac checks out (see TransferTickets).
+message TransferTicket {
+  string match_id = 1;
+  string player_uuid = 2;
+  int64 issued_at_millis = 3;
+  string node_id = 4;
+  bool spectator = 5;
+  bytes hmac = 6;
+}

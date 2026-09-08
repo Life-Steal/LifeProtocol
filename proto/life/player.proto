@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package life;
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "dev.saltt.life.protocol";
+option java_multiple_files = true;
+
+message LifePlayerMessage {
+  string uuid = 1;
+  string display_name = 2;
+  google.protobuf.Timestamp first_join = 3;
+  google.protobuf.Timestamp last_joined = 4;
+  repeated string past_names = 5;
+  repeated string used_ips = 6;
+}
+
+message PostPlayerAck {
+  string uuid = 1;
+  bool persisted = 2;
+}
+
+message GetPlayerRequest {
+  string uuid = 1;
+}
+
+message GetPlayerByNameRequest {
+  string username = 1;
+}
+
+service LifePlayerService {
+  rpc PostPlayer(LifePlayerMessage) returns (PostPlayerAck);
+  rpc GetPlayer(GetPlayerRequest) returns (LifePlayerMessage);
+  rpc GetPlayerByName(GetPlayerByNameRequest) returns (LifePlayerMessage);
+}

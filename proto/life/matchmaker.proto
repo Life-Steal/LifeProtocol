@@ -12,12 +12,16 @@ message MatchHeartbeat {
   GameType game_type = 2;
   MatchStatus status = 3;
 
-
   repeated string connected_player_ids = 4;
 
+  // Everyone the match still holds a place for. A player who drops out of this list is free to
+  // queue again as far as the hub is concerned.
   repeated string claimed_player_ids = 5;
 
   int32 alive_count = 6;
+
+  // Id of the node sending this, as configured on both ends.
+  string node_id = 7;
 }
 
 message HeartbeatAck {
@@ -36,6 +40,9 @@ message PlayerResult {
   int64 time_alive_millis = 7;
 
   string killer_uuid = 8;
+
+  // Round trip time the node measured for this player while they were connected. 0 if unknown.
+  int32 ping_millis = 9;
 }
 
 message MatchResult {
@@ -51,6 +58,8 @@ message MatchResult {
   string winner_uuid = 7;
 
   repeated PlayerResult players = 8;
+
+  string node_id = 9;
 }
 
 message MatchResultAck {

@@ -16,6 +16,9 @@ message SetupMatchRequest {
   string map_id = 4;
 
   int32 minimum_starting_players = 5;
+
+  // Region id the hub chose for this lobby, as named in its config. Informational on the node.
+  string region = 6;
 }
 
 message SetupMatchResponse {
@@ -33,7 +36,27 @@ message SpectatorReserveResponse {
   bool success = 1;
 }
 
+message CancelMatchRequest {
+  string match_id = 1;
+  string reason = 2;
+}
+
+message CancelMatchResponse {
+  bool cancelled = 1;
+}
+
+message ForfeitPlayerRequest {
+  string match_id = 1;
+  string player_uuid = 2;
+}
+
+message ForfeitPlayerResponse {
+  bool forfeited = 1;
+}
+
 service InstancerService {
   rpc SetupMatch(SetupMatchRequest) returns (SetupMatchResponse);
   rpc SpectatorReserve(SpectatorReserveRequest) returns (SpectatorReserveResponse);
+  rpc CancelMatch(CancelMatchRequest) returns (CancelMatchResponse);
+  rpc ForfeitPlayer(ForfeitPlayerRequest) returns (ForfeitPlayerResponse);
 }

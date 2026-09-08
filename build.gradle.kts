@@ -8,7 +8,7 @@ plugins {
 
 // JitPack coordinates: com.github.Life-Steal:LifeProtocol:<tag>
 group = "com.github.Life-Steal"
-version = "1.0.0"
+version = "v1.2.0"
 
 repositories {
     mavenCentral()
@@ -58,7 +58,7 @@ protobuf {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 
     withSourcesJar()
