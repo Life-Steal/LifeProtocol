@@ -1,6 +1,6 @@
 [versions]
 protobuf = "4.31.1"
-grpc = "1.74.0"
+grpc = "1.75.0"
 protobufPlugin = "0.9.5"
 annotationsApi = "6.0.53"
 
